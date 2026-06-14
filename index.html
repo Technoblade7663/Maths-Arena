@@ -20,6 +20,12 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        /* Different background when showing thank you page */
+        body.thankyou-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%);
         }
         
         .container {
@@ -118,7 +124,7 @@
         }
         
         .thankyou-page p {
-            color: #aaa;
+            color: #ddd;
             line-height: 1.6;
             margin-bottom: 24px;
         }
@@ -133,6 +139,7 @@
             justify-content: center;
             margin: 0 auto;
             font-size: 40px;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
         }
         
         #otherPositionField {
@@ -148,11 +155,11 @@
             <p class="subtitle">Professional Staff Application Form</p>
             
             <form id="applicationForm" action="https://formsubmit.co/khantharsh671@gmail.com" method="POST">
-                <!-- FormSubmit Settings -->
+                <!-- FormSubmit Settings - MUST BE INSIDE FORM -->
                 <input type="hidden" name="_subject" value="New Math Arena Staff Application">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="?submitted=true">
+                <input type="hidden" name="_next" value="https://technoblade7663.github.io/Maths-Arena/?submitted=true">
                 
                 <input type="text" name="Full Name" placeholder="Full Name" required>
                 
@@ -188,8 +195,8 @@
                 
                 <select name="Position" id="positionSelect" required>
                     <option value="" disabled selected>Select Position</option>
-                    <option value="Teacher">Teacher</option>
                     <option value="Student">Student</option>
+                    <option value="Teacher">Teacher</option>
                     <option value="Moderator">Moderator</option>
                     <option value="Problem Setter">Problem Setter</option>
                     <option value="Competition Manager">Competition Manager</option>
@@ -209,6 +216,41 @@
                 
                 <button type="submit" class="submit-btn">Submit Application</button>
             </form>
-            <input type="hidden" name="_next" value="https://technoblade7663.github.io/Maths-Arena/?submitted=true">
             
-            <p class="footer">© 2026
+            <p class="footer">© 2026 Math Arena | Think · Solve · Improve</p>
+        </div>
+        
+        <!-- THANK YOU PAGE -->
+        <div class="thankyou-page" id="thankyouPage">
+            <div class="check-icon">✓</div>
+            <h2>Application Submitted!</h2>
+            <p>Thank you for applying to Math Arena. We have received your details and will review your application. We’ll contact you soon via email or Telegram.</p>
+            <p class="footer">© 2026 Math Arena | Think · Solve · Improve</p>
+        </div>
+    </div>
+
+    <script>
+        // Show thank you page if URL has ?submitted=true
+        if (window.location.search.includes('submitted=true')) {
+            document.getElementById('formPage').style.display = 'none';
+            document.getElementById('thankyouPage').style.display = 'block';
+            document.body.classList.add('thankyou-bg'); // Blue gradient background
+        }
+        
+        // Show text field when "Other" is selected
+        const positionSelect = document.getElementById('positionSelect');
+        const otherField = document.getElementById('otherPositionField');
+        
+        positionSelect.addEventListener('change', function() {
+            if (this.value === 'Other') {
+                otherField.style.display = 'block';
+                otherField.required = true;
+            } else {
+                otherField.style.display = 'none';
+                otherField.required = false;
+                otherField.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
